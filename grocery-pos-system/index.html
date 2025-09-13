@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام بقالة الرحمة</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap">
+</head>
+<body>
+    <header>
+        <h1>🛒 بقالة الرحمة</h1>
+        <div id="connectionStatus" class="online">متصل</div>
+    </header>
+
+    <main>
+        <div class="pos-container">
+            <div class="product-selection">
+                <h2>المنتجات</h2>
+                <div class="search-bar">
+                    <input type="text" id="productSearch" placeholder="ابحث بالاسم أو الباركود...">
+                </div>
+                <div id="productList" class="product-list">
+                    <!-- سيتم ملء المنتجات هنا بواسطة app.js -->
+                </div>
+            </div>
+
+            <div class="cart-section">
+                <h2>سلة المشتريات</h2>
+                <div id="cartItems" class="cart-items">
+                    <p>السلة فارغة.</p>
+                </div>
+                <div class="cart-summary">
+                    <div class="summary-row">
+                        <span>المجموع الفرعي:</span>
+                        <span id="subtotal">0.00 ريال</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>الضريبة (15%):</span>
+                        <span id="tax">0.00 ريال</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>المجموع الكلي:</span>
+                        <span id="total">0.00 ريال</span>
+                    </div>
+                </div>
+                <div class="payment-section">
+                    <button id="processPaymentBtn" class="payment-button">إتمام الدفع</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>نظام إدارة المبيعات والمخزون - الإصدار 1.0.0</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="database.js"></script>
+    <script src="inventory.js"></script>
+    <script src="pos.js"></script>
+    <script src="offline.js"></script>
+    <script src="reports.js"></script>
+    <script src="customers.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
