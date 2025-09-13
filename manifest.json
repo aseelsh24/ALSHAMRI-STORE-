@@ -1,0 +1,20 @@
+{
+  "short_name": "بقالة POS",
+  "name": "نظام إدارة البقالة",
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/192.png?text=POS",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://via.placeholder.com/512.png?text=POS",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#3498db",
+  "background_color": "#ffffff"
+}

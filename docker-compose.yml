@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  couchdb:
+    image: couchdb:3
+    container_name: grocery-pos-couchdb
+    restart: always
+    ports:
+      - "5984:5984" # CouchDB HTTP
+      - "4369:4369" # EPMD
+      - "9100:9100" # Erlang distribution
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=password
+    volumes:
+      - ./couchdb_data:/opt/couchdb/data
+
+volumes:
+  couchdb_data:

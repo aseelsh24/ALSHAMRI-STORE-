@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Test Runner</title>
+    <style>
+        body { font-family: monospace; }
+        .pass { color: green; }
+        .fail { color: red; }
+        ul { list-style-type: none; padding-left: 0; }
+    </style>
+</head>
+<body>
+    <h1>Project Test Results</h1>
+    <ul id="test-results"></ul>
+
+    <!-- Load the test script -->
+    <!-- Note: We are using type="module" to allow imports in the test file -->
+    <script type="module" src="simple.test.js"></script>
+</body>
+</html>
