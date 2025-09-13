@@ -3,66 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام بقالة الرحمة</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="نظام متكامل لإدارة المبيعات والمخزون للمواد الغذائية">
+    <meta name="theme-color" content="#2d9cdb">
+
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; img-src 'self' data:;">
+
+    <title>نظام مبيعات وإدارة مخزون البقالة</title>
+
+    <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap">
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>🛒 بقالة الرحمة</h1>
-        <div id="connectionStatus" class="online">متصل</div>
+    <!-- Skip to content link for accessibility -->
+    <a href="#main-content" class="skip-link">الانتقال إلى المحتوى الرئيسي</a>
+
+    <header role="banner">
+        <h1>نظام إدارة البقالة</h1>
+        <div id="connectionStatus" class="connection-status" role="status" aria-live="polite">
+            متصل
+        </div>
     </header>
 
-    <main>
+    <main id="main-content" role="main">
         <div class="pos-container">
-            <div class="product-selection">
-                <h2>المنتجات</h2>
-                <div class="search-bar">
-                    <input type="text" id="productSearch" placeholder="ابحث بالاسم أو الباركود...">
-                </div>
-                <div id="productList" class="product-list">
-                    <!-- سيتم ملء المنتجات هنا بواسطة app.js -->
-                </div>
-            </div>
+            <!-- Product Selection Section -->
+            <section class="product-selection" aria-labelledby="products-heading">
+                <h2 id="products-heading">المنتجات</h2>
 
-            <div class="cart-section">
-                <h2>سلة المشتريات</h2>
-                <div id="cartItems" class="cart-items">
-                    <p>السلة فارغة.</p>
+                <div class="search-bar">
+                    <label for="productSearch" class="sr-only">البحث في المنتجات</label>
+                    <input
+                        type="search"
+                        id="productSearch"
+                        placeholder="البحث عن منتج..."
+                        aria-describedby="search-help"
+                        autocomplete="off"
+                    >
+                    <div id="search-help" class="sr-only">ابحث بالاسم أو رقم الباركود</div>
                 </div>
-                <div class="cart-summary">
+
+                <div class="product-list" id="productList" role="grid" aria-label="قائمة المنتجات">
+                    <!-- Products will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Cart Section -->
+            <section class="cart-section" aria-labelledby="cart-heading">
+                <h2 id="cart-heading">سلة المشتريات</h2>
+
+                <div class="cart-items" id="cartItems" role="region" aria-label="محتويات السلة">
+                    <p class="empty-cart">السلة فارغة.</p>
+                </div>
+
+                <div class="cart-summary" role="region" aria-labelledby="summary-heading">
+                    <h3 id="summary-heading" class="sr-only">ملخص الطلب</h3>
+
                     <div class="summary-row">
                         <span>المجموع الفرعي:</span>
-                        <span id="subtotal">0.00 ريال</span>
+                        <span id="subtotal" aria-label="المجموع الفرعي">0.00 ريال</span>
                     </div>
+
                     <div class="summary-row">
                         <span>الضريبة (15%):</span>
-                        <span id="tax">0.00 ريال</span>
+                        <span id="tax" aria-label="قيمة الضريبة">0.00 ريال</span>
                     </div>
+
                     <div class="summary-row total">
                         <span>المجموع الكلي:</span>
-                        <span id="total">0.00 ريال</span>
+                        <span id="total" aria-label="المجموع الكلي">0.00 ريال</span>
                     </div>
                 </div>
-                <div class="payment-section">
-                    <button id="processPaymentBtn" class="payment-button">إتمام الدفع</button>
-                </div>
-            </div>
+
+                <button
+                    type="button"
+                    class="payment-button"
+                    id="processPaymentBtn"
+                    disabled
+                    aria-describedby="payment-help"
+                >
+                    إتمام الدفع
+                </button>
+                <div id="payment-help" class="sr-only">انقر لإتمام عملية الشراء</div>
+            </section>
         </div>
     </main>
 
-    <footer>
-        <p>نظام إدارة المبيعات والمخزون - الإصدار 1.0.0</p>
+    <footer role="contentinfo">
+        <p>&copy; 2025 نظام إدارة البقالة - جميع الحقوق محفوظة</p>
     </footer>
+
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="loading-indicator" aria-hidden="true">
+        <div class="spinner"></div>
+        <p>جاري التحميل...</p>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notificationContainer" class="notification-container" aria-live="polite"></div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal" role="dialog" aria-labelledby="payment-modal-title" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="payment-modal-title">إتمام الدفع</h3>
+                <button type="button" class="modal-close" aria-label="إغلاق النافذة">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="paymentForm">
+                    <div class="form-group">
+                        <label for="paymentMethod">طريقة الدفع:</label>
+                        <select id="paymentMethod" required>
+                            <option value="cash">نقدي</option>
+                            <option value="card">بطاقة ائتمان</option>
+                            <option value="transfer">تحويل بنكي</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="amountPaid">المبلغ المدفوع:</label>
+                        <input type="number" id="amountPaid" step="0.01" min="0" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerPhone">رقم هاتف العميل (اختياري):</label>
+                        <input type="tel" id="customerPhone" placeholder="+966xxxxxxxxx">
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="submit" class="btn-primary">تأكيد الدفع</button>
+                        <button type="button" class="btn-secondary" id="cancelPayment">إلغاء</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script src="database.js"></script>
     <script src="inventory.js"></script>
     <script src="pos.js"></script>
     <script src="offline.js"></script>
-    <script src="reports.js"></script>
-    <script src="customers.js"></script>
     <script src="app.js"></script>
+
+    <!-- PWA Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(registrationError => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>
