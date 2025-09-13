@@ -1,20 +1,57 @@
 {
   "name": "نظام مبيعات وإدارة مخزون البقالة",
   "short_name": "بقالة الرحمة",
-  "description": "نظام متكامل لإدارة المبيعات والمخزون للمواد الغذائية",
+  "description": "نظام متكامل لإدارة المبيعات والمخزون للمواد الغذائية مع دعم العمل دون اتصال",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#2d9cdb",
-  "orientation": "portrait",
+  "orientation": "portrait-primary",
   "dir": "rtl",
   "lang": "ar",
   "icons": [
+    {
+      "src": "icons/icon-72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
     {
       "src": "icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "icons/icon-512.png",
@@ -23,6 +60,90 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["business", "productivity", "retail"],
-  "prefer_related_applications": false
+  "categories": ["business", "productivity", "retail", "finance"],
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "screenshots": [
+    {
+      "src": "screenshots/desktop-1.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "واجهة التطبيق الرئيسية على سطح المكتب"
+    },
+    {
+      "src": "screenshots/mobile-1.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "واجهة التطبيق على الهاتف المحمول"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "مبيعات جديدة",
+      "short_name": "مبيعات",
+      "description": "بدء عملية بيع جديدة",
+      "url": "/?action=new-sale",
+      "icons": [
+        {
+          "src": "icons/sale-96.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "إدارة المخزون",
+      "short_name": "مخزون",
+      "description": "عرض وإدارة المخزون",
+      "url": "/?action=inventory",
+      "icons": [
+        {
+          "src": "icons/inventory-96.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "التقارير",
+      "short_name": "تقارير",
+      "description": "عرض تقارير المبيعات",
+      "url": "/?action=reports",
+      "icons": [
+        {
+          "src": "icons/reports-96.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+grocery",
+      "url": "/?handler=%s"
+    }
+  ],
+  "share_target": {
+    "action": "/share-receipt",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "receipt",
+          "accept": ["image/*", "application/pdf"]
+        }
+      ]
+    }
+  },
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": ["navigate-existing", "auto"]
+  }
 }
